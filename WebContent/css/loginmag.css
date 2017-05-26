@@ -1,0 +1,47 @@
+body{
+	background-color: blanchedalmond;
+	font-family: "微软雅黑";
+}
+
+
+
+.login{
+	width: 350px;
+	height: 200px;
+	margin-left: 512px;
+	margin-top: 200px;
+}
+
+
+.image{
+	float: left;
+}
+form{
+	margin: auto;
+}
+.submit{
+	margin-left: 120px;
+}
+
+.text{
+	border: none;
+	width: 200px;
+	height: 30px;
+	border-radius: 5px;
+}
+
+.login span{
+	color: blue;
+	font-size: 20px;
+}
+
+.submit{
+	width: 70px;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+}
+
+.submit:hover{
+	background-color: burlywood;
+}

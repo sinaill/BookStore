@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-22 0:13:29 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="entity.Orderes" table="ORDERES">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="address" class="entity.Address" lazy="false" cascade="save-update">
+            <column name="ADDRESS_ID" />
+        </many-to-one>
+        <list name="items" inverse="false" table="ITEM" lazy="false" cascade="all-delete-orphan">
+            <key>
+                <column name="ORDER_ID" />
+            </key>
+            <list-index base="0"></list-index>
+            <one-to-many class="entity.Item" />
+        </list>
+        <property name="amount" type="float">
+            <column name="AMOUNT" />
+        </property>
+        <property name="userid" type="int" formula="(select USER_ID from Orderes o where o.id=id)">
+        </property>
+        <property name="state" type="java.lang.String">
+            <column name="STATE" />
+        </property>
+        <property name="date" type="java.lang.String">
+        	<column name="date"></column>
+        </property>
+    </class>
+</hibernate-mapping>

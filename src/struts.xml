@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+
+	<package name="User" extends="json-default">
+	
+		<interceptors>
+			<interceptor name="userinterceptor" class="interceptor.Userinterceptor"></interceptor>
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="userinterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>	
+		
+		<!-- 用户注册 -->
+		<action name="register" class="action.user.RegisterAction">
+			<result name="verify">/user/verify_form.jsp</result>
+		</action>
+		<!-- 订单处查看用户 -->
+		<action name="getuserbyemail" class="action.user.Getuserbyemail">
+			<result>/back/alluser.jsp</result>
+		</action>
+		<!-- 获取未被用户 -->
+		<action name="getnobanuser" class="action.user.Nobanuser">
+			<result>/back/alluser.jsp</result>
+		</action>
+		<!-- 获取禁用用户 -->
+		<action name="getbanuser" class="action.user.Getbanuser">
+			<result>/back/lift.jsp</result>
+		</action>
+		<!-- 禁用用户 -->
+		<action name="banuser" class="action.user.Banuser">
+			<result type="redirect">getnobanuser.action</result>
+		</action>
+		<!-- 解禁用户 -->
+		<action name="liftban" class="action.user.Liftban">
+			<result type="redirect">getbanuser.action</result>
+		</action>
+		<!-- 用户登录 -->
+		<action name="login" class="action.user.LoginAction">
+			<result>/main/main.jsp</result>
+			<result name="verify" type="redirect">Emailreverify.action</result>
+			<result name="fail">/user/login_form.jsp</result>
+		</action>
+		<!-- 注销 -->
+		<action name="logout" class="action.user.Logout">
+			<result>/user/login_form.jsp</result>
+		</action>
+		<!-- 修改密码 -->
+		<action name="modifypassword" class="action.user.Modifypassword">
+			<result type="json">
+				<param name="root">ok</param>
+			</result>
+		</action>
+		<!-- 生成验证码 -->
+		<action name="veryficationcode" class="action.user.Veryficationcode">
+			<result type="stream">
+				<param name="inputName">input</param>
+				<param name="contentType">image/jpeg</param>
+			</result>
+		</action>
+		<!-- 验证网页验证码 -->
+		<action name="checkvfycode" class="action.user.Checkvfycode">
+			<result type="json">
+				<param name="root">ok</param>
+			</result>
+		</action>
+		<!-- 重新发送邮箱验证码 -->
+		<action name="Emailreverify" class="action.user.Emailreverify">
+			<result>/user/verify_form.jsp</result>
+		</action>
+		<!-- 获取验证码 -->
+		<action name="getveryfication" class="action.user.Getveryfication">
+			<result type="json">
+				<param name="root">email</param>
+			</result>
+		</action>
+		<!-- 验证邮箱验证码 -->
+		<action name="checkemailcode" class="action.user.Checkemailcode">
+			<result type="json">
+				<param name="root">ok</param>
+			</result>
+		</action>
+		<!-- 验证邮箱是否已存在 -->
+		<action name="checkemail" class="action.user.Checkemail">
+			<result type="json">
+				<param name="root">ok</param>
+			</result>
+		</action>
+		<!-- 我的当当 -->
+		<action name="mydangdang" class="action.user.Mydangdang">
+			<result>/mydangdang/mydangdang.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 获取所有种类 -->
+		<action name="category" class="action.category.CategoryAction">
+			<result>/main/category.jsp</result>
+			<result name="json" type="json">
+				<param name="root">categories</param>
+			</result>
+		</action>
+		
+		<!-- 添加种类 -->
+		<action name="addcategory" class="action.category.Addcategory">
+			<result>/success.jsp</result>
+		</action>
+		
+		<!-- 删除种类 -->
+		<action name="deletecategory" class="action.category.Deletecategory">
+			<result>/success.jsp</result>
+		</action>
+		<!-- 获取种类 -->
+		<action name="secondcategory" class="action.category.SecondcategoryAction">
+			<result type="json">
+				<param name="root">categories</param>
+			</result>
+		</action>
+		
+		<!-- 添加地址 -->
+		<action name="addaddress" class="action.address.Addaddress">
+			<result type="redirect">address.action</result>
+		</action>
+		
+		<!-- 获取所有地址 -->
+		<action name="address" class="action.address.AddressAction">
+			<result type="json">
+				<param name="root">addresses</param>
+			</result>
+			<result name="address">/mydangdang/address.jsp</result>
+		</action>
+		
+		<!-- 删除地址 -->
+		<action name="deleteaddress" class="action.address.Deleteaddress">
+			<result type="redirect">address.action</result>
+		</action>
+		
+		<!-- 修改地址 -->
+		<action name="modifyaddress" class="action.address.Modifyaddress">
+			<result type="redirect">address.action</result>
+		</action>
+		
+		<!-- 推荐书籍 -->
+		<action name="productreco" class="action.main.RecommendAction">
+			<result>/main/recommend.jsp</result>
+		</action>
+		<!-- 查找书籍 -->
+		<action name="getproduct" class="action.main.Searchaction">
+			<result>/main/book_list2.jsp</result>
+		</action>
+		<!-- 通过ISBN查找书籍 -->
+		<action name="getprobyisbn" class="action.product.GetprobyISBN">
+			<result type="json">
+				<param name="root">product</param>
+			</result>
+		</action>
+		<!-- 添加书籍 -->
+		<action name="addproduct" class="action.product.Addproduct">
+			<result>/back/addproduct.jsp</result>
+		</action>
+		<!-- 修改书籍 -->
+		<action name="editproduct" class="action.product.Editproduct">
+			<result>/back/editproduct.jsp</result>
+		</action>
+		<!-- 删除书籍 -->
+		<action name="deleteproduct" class="action.product.Deleteproduct">
+			<result type="json">
+				<param name="root">success</param>
+			</result>
+		</action>
+		<!-- 获取书籍 -->
+		<action name="productinfo" class="action.main.Productinfo">
+			<result>/main/product.jsp</result>
+		</action>
+		<!-- 获取某种类书籍 -->
+		<action name="productlist" class="action.main.Booklist">
+			<result>/main/book_list.jsp</result>
+		</action>
+		<!-- 获取所有书籍 -->
+		<action name="getallproducts" class="action.product.Getallproducts">
+			<result>/back/stock.jsp</result>
+		</action>		
+		<!-- 添加库存 -->
+		<action name="addstock" class="action.product.Addstock">
+			<result type="json">
+				<param name="root">success</param>
+			</result>
+		</action>
+		<!-- 添加到购物车 -->
+		<action name="addtocart" class="action.cart.Addaction">
+			<result type="json">
+				<param name="root">ok</param>
+			</result>
+		</action>
+		
+		<!-- 查看购物车 -->
+		<action name="cartlist" class="action.cart.CartAction">
+			<result>/cart/cart_list.jsp</result>
+		</action>
+		<!-- 购物车删除物品 -->
+		<action name="deletecart" class="action.cart.Deleteaction">
+			<result type="redirect">cartlist.action</result>
+		</action>
+		<!-- 变更购物车物品数量 -->
+		<action name="modifycart" class="action.cart.Modifyaction">
+			<result type="redirect">cartlist.action</result>
+		</action>
+		<!-- 清空购物车 -->
+		<action name="cleancart" class="action.cart.Cleanaction">
+			<result type="redirect">cartlist.action</result>
+		</action>
+		<!-- 生成订单 -->
+		<action name="addorder" class="action.order.addorder">
+			<result>/order/order_ok.jsp</result>
+		</action>
+		<!-- 确认订单 -->
+		<action name="orderinfo" class="action.order.Orderinfo">
+			<result>/order/order_info.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 查看订单 -->
+		<action name="myorder" class="action.order.Myorder">
+			<result>/mydangdang/order.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 取消订单 -->
+		<action name="cancelorder" class="action.order.Cancelaction">
+			<result>/mydangdang/order.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 用户查看未处理订单 -->
+		<action name="untreated" class="action.order.Untreated">
+			<result>/mydangdang/order.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 用户查看已发货订单 -->
+		<action name="delivered" class="action.order.Delivered">
+			<result>/mydangdang/order.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 用户查看已收货订单 -->
+		<action name="recieved" class="action.order.Recieved">
+			<result>/mydangdang/order.jsp</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<!-- 获取所有订单 -->
+		<action name="gettreatedorder" class="action.order.Getreatedorder">
+			<result>/back/allorder.jsp</result>
+		</action>
+		<!-- 未处理订单 -->
+		<action name="suspenseorder" class="action.order.Suspenseorder">
+			<result>/back/allorder.jsp</result>
+		</action>
+		<!-- 待签收订单 -->
+		<action name="deliveredBack" class="action.order.DeliveredBack">
+			<result>/back/allorder.jsp</result>
+		</action>
+		<!-- 发货 -->
+		<action name="deliver" class="action.order.Deliveraction">
+			<result type="redirect">suspenseorder.action</result>
+		</action>
+		<!-- 确认收货 -->
+		<action name="recieve" class="action.user.RecieveAction">
+			<result type="redirect">myorder.action</result>
+		</action>
+		<!-- 修改管理员密码 -->
+		<action name="modifymagpassword" class="action.manager.Modifypassword">
+			<result>/back/modifypassword.jsp</result>
+		</action>
+		<!-- 管理员登录 -->
+		<action name="managerlogin" class="action.manager.LoginAction">
+			<result name="fail">/back/login.jsp</result>
+			<result type="redirect">suspenseorder.action</result>
+		</action>
+		
+		<!-- 新订单数量 -->
+		<action name="suspensenum" class="action.order.num.Suspensenum">
+			<result>/back/suspense.jsp</result>
+		</action>
+		<!-- 待发货数量 -->
+		<action name="untreatednum" class="action.order.num.Untreatednum">
+			<result>/mydangdang/untreatednum.jsp</result>
+		</action>
+		<!-- 待收货 -->
+		<action name="deliverednum" class="action.order.num.Deliverednum">
+			<result>/mydangdang/deliverednum.jsp</result>
+		</action>
+		<!-- 待签收 -->
+		<action name="deliverednumBack" class="action.order.num.DeliverednumBack">
+			<result>/back/delivered.jsp</result>
+		</action>
+	</package>
+</struts>

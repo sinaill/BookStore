@@ -1,0 +1,141 @@
+body{
+	background-color: blanchedalmond;
+}
+
+.main{
+	width: 965px;
+	margin: auto;
+	background-color: white;
+}
+
+hr{
+	border: none;
+	background-color: #F27B21;
+	height: 3px;
+}
+
+.menu_left{
+	width: 200px;
+	float: left;
+}
+
+a{
+	text-decoration: none;
+}
+ul{
+	list-style: none;
+}
+
+.test ul{
+	margin-left: -40px;
+	
+}
+
+.menu_left{
+	margin-top: -8px;
+	background-color: white;
+	width: 230px;
+} 
+
+
+
+.test{
+	background-color: #F0F0F0;
+	border:1px solid black;
+	
+}
+
+
+ li{
+ 	text-align: center;
+ 	width: 150px;
+ }
+
+.test li{
+	background-color: white;
+}
+
+.test li:HOVER{
+	background-color: blanchedalmond;
+}
+.test a{
+	line-height: 40px;
+	color: #000000;
+}
+
+
+.right{
+		margin-top: -8px;
+	width: 735px;
+	height: auto;
+	float: left;
+	background-color: white;
+}
+.user td{ 
+	 padding-left: 50px;
+}
+
+.book_pic{
+	float: left;
+}
+.head{
+	background-color: #F0F0F0;
+	font-size:15px;
+}
+.user{
+	margin-top: 15px;
+}
+.address{
+	font-family: "微软雅黑";
+	font-size: 13px;
+}
+
+
+.total{
+	font-family: cursive;
+	font-size:20px;
+	color:red;
+	font:bold;
+}
+
+.page{
+	background-color: white;
+	height: 35px;
+	font-family: arial;
+	font-size: 10px;
+	color: #F27B21;
+}
+
+.last{
+	float: left;
+	margin-top: 11px;
+	margin-left: 250px;
+}
+.thispage{
+	float: left;
+	margin-top: 11px;
+}
+.next{
+	float: left;
+	margin-top: 11px;
+}
+
+.next2{
+	float: left;
+	margin-top: 11px;
+	color:white;
+}
+.last2{
+	float: left;
+	margin-top: 11px;
+	color:white;
+	margin-left: 250px;
+}
+ 
+.last a{
+	color:#F27B21;
+}
+
+.next a{
+	color:#F27B21;
+}

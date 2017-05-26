@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-22 0:13:29 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="entity.User" table="USER">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="nickname" type="java.lang.String">
+            <column name="NICKNAME" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+        <property name="email_verificationCode" type="java.lang.String">
+            <column name="EMAIL_VERIFICATIONCODE" />
+        </property>
+        <property name="is_verify" type="boolean">
+            <column name="IS_VERIFY" />
+        </property>
+        <property name="ban" type="boolean">
+            <column name="BAN" />
+        </property>
+        <property name="last_logintime" type="java.lang.String">
+            <column name="LAST_LOGINTIME" />
+        </property>
+        <list name="address" inverse="false" table="ADDRESS" lazy="false" cascade="all-delete-orphan">
+            <key>
+                <column name="USER_ID" />
+            </key>
+            <list-index base="0"></list-index>
+            <one-to-many class="entity.Address" />
+        </list>
+        <list name="orderes" inverse="false" table="ORDERES" lazy="false" cascade="all-delete-orphan">
+            <key>
+                <column name="USER_ID" />
+            </key>
+            <list-index base="0"></list-index>
+            <one-to-many class="entity.Orderes" />
+        </list>
+    </class>
+</hibernate-mapping>

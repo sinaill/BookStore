@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-17 0:10:53 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="entity.Category" table="CATEGORY">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+		
+		
+        <list name="categories" inverse="false" table="CATEGORY" lazy="false"  cascade="all-delete-orphan">
+            <key>
+                <column name="parent_ID" />
+            </key>
+            <list-index base="0"></list-index>
+            <one-to-many class="entity.Category" />
+        </list>
+        <property name="Category_productnum" type="int" formula="(select count(*) from Product p where p.category_ID=id)">
+        </property>
+        <list name="products" inverse="false" lazy="false" table="product" cascade="all-delete-orphan">
+            <key>
+                <column name="category_ID" />
+            </key>
+            <list-index base="0"></list-index>
+            <one-to-many class="entity.Product"/>
+        </list>
+    </class>
+</hibernate-mapping>

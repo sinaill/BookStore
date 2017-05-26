@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-17 0:10:53 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="entity.Product" table="PRODUCT">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="author" type="java.lang.String">
+            <column name="AUTHOR" />
+        </property>
+        <property name="publisher" type="java.lang.String">
+            <column name="PUBLISHER" />
+        </property>
+        <property name="publish_time" type="java.lang.String">
+            <column name="PUBLISH_TIME" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="price" type="float">
+            <column name="PRICE" />
+        </property>
+        <property name="picture" type="java.lang.String">
+            <column name="PICTURE" />
+        </property>
+
+        <property name="words" type="java.lang.String">
+            <column name="WORDS" />
+        </property>
+        <property name="revision" type="int">
+            <column name="REVISION" />
+        </property>
+        <property name="impression" type="int">
+            <column name="IMPRESSION" />
+        </property>
+        <property name="total_page" type="int">
+            <column name="TOTAL_PAGE" />
+        </property>
+        <property name="print_time" type="java.lang.String">
+            <column name="PRINT_TIME" />
+        </property>
+        <property name="ISBN" type="java.lang.String">
+            <column name="ISBN" />
+        </property>
+        <property name="sumary" type="java.lang.String">
+            <column name="SUMARY" />
+        </property>
+        <property name="paper" type="java.lang.String">
+            <column name="PAPER" />
+        </property>
+        <property name="packaging" type="java.lang.String">
+            <column name="PACKAGING" />
+        </property>
+        <property name="stock" type="int">
+            <column name="STOCK" />
+        </property>
+        <many-to-one name="category" class="entity.Category" column="category_ID" cascade="save-update"
+         lazy="false">
+        </many-to-one>
+    </class>
+</hibernate-mapping>

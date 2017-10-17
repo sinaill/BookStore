@@ -1,15 +1,20 @@
 package action.cart;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 
 import entity.CartItem;
 import entity.Product;
 import service.Productservice;
+import util.CartFactory;
+import util.CookieUtil;
 
 public class Addaction {
 	@Resource(name="Productservice")
@@ -19,9 +24,13 @@ public class Addaction {
 	
 	
 	@SuppressWarnings("unchecked")
-	public String execute(){
+	public String execute() throws UnsupportedEncodingException{
 		boolean exist = false;
-		List<CartItem> cartitems = (List<CartItem>) ActionContext.getContext().getSession().get("cart");
+//		List<CartItem> cartitems = (List<CartItem>) ActionContext.getContext().getSession().get("cart");
+		List<CartItem> cartitems = CartFactory.CookieValueToCartItem(productservice, 
+				CartFactory.getCookieItemFromCookieValue("cart", ServletActionContext.getRequest()));
+		
+		
 		if(cartitems == null){
 			cartitems = new ArrayList<CartItem>();
 		}
@@ -49,7 +58,8 @@ public class Addaction {
 		}
 		
 		ActionContext.getContext().getSession().put("cart", cartitems);
-		
+		CookieUtil.addCookie("cart", CartFactory.getCookieValueFromCartItem(cartitems), 
+				ServletActionContext.getResponse());
 		return "success";
 	}
 	

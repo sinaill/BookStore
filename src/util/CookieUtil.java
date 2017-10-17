@@ -8,11 +8,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 public class CookieUtil {
 
 	private static int default_age =365*24*3600;
 	
-    // ����age
+ 
 	public static void addCookie(String name,String value,
 			HttpServletResponse response,int age) throws UnsupportedEncodingException{
 		
@@ -47,12 +48,11 @@ public class CookieUtil {
 			response){
 		Cookie cookie = new Cookie(name,"");
 		cookie.setMaxAge(0);
-
+		cookie.setPath("/");
 		response.addCookie(cookie);
 		
 	}
 	
-	
-	
+
 
 }

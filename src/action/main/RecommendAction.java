@@ -5,7 +5,10 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import entity.Product;
+import redis.clients.jedis.Jedis;
 import service.Productservice;
+import util.RedisUtils;
+import util.SerializeUtils;
 
 public class RecommendAction {
 	@Resource(name="Productservice")
@@ -14,8 +17,13 @@ public class RecommendAction {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public String execute(){
-		products = productservice.getproductreco();
+		Jedis jedis = RedisUtils.getJedis();
+		byte b[] = jedis.get("rec".getBytes());
+		products = (List<Product>) SerializeUtils.unserializeList(b);
+		
+//		products = productservice.getproductreco();
 		return "success";
 	}
 

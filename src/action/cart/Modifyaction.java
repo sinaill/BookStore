@@ -1,17 +1,22 @@
 package action.cart;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 
 import entity.CartItem;
+import util.CartFactory;
+import util.CookieUtil;
 
 public class Modifyaction {
 	private int product_id;
 	private int product_num;
 
 	@SuppressWarnings("unchecked")
-	public String execute(){
+	public String execute() throws UnsupportedEncodingException{
 		List<CartItem> cartitems = (List<CartItem>) ActionContext.getContext().getSession().get("cart");
 		for(CartItem cartitem:cartitems){
 			if(cartitem.getProduct().getId() == product_id){
@@ -24,7 +29,8 @@ public class Modifyaction {
 				
 			}
 		}
-		
+		CookieUtil.addCookie("cart", CartFactory.getCookieValueFromCartItem(cartitems), 
+				ServletActionContext.getResponse());
 		return "success";
 	}
 	
